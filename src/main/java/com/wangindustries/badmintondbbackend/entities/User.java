@@ -10,7 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -35,7 +37,6 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    //todo brainstorm how to relate stringing events to users...or if thats even needed
-//    @OneToMany
-//    private Stringing
+    @OneToMany(mappedBy = "stringer_id")
+    private List<Stringing> stringings;
 }
