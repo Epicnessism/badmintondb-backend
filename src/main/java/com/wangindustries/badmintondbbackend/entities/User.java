@@ -10,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
@@ -37,6 +36,6 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "stringer_id")
+    @OneToMany(mappedBy = "stringerId")
     private List<Stringing> stringings;
 }

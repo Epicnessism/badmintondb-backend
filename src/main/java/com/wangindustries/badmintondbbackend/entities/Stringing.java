@@ -1,10 +1,6 @@
 package com.wangindustries.badmintondbbackend.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -17,6 +13,6 @@ public class Stringing {
     private UUID stringing_id;
 
     @ManyToOne
-    @Column(name = "stringer_id", nullable = false, unique = false)
+    @JoinColumn(name = "stringer_id", nullable = false)
     private User stringerId;
 }
