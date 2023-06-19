@@ -15,7 +15,7 @@ public class Stringing {
 
   @ManyToOne
   @JoinColumn(nullable = false)
-  private Users stringerId;
+  private User stringerId;
 
   @Column(nullable = false)
   private Timestamp requestedTimestamp;
@@ -45,7 +45,9 @@ public class Stringing {
   private Integer crossLength;
 
   @Column
+  @Enumerated(value = EnumType.STRING)
   private StringingMethod method;
+  //TODO look into converters.........https://www.baeldung.com/jpa-persisting-enums-in-jpa
 
   @Column
   private boolean status;
