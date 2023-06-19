@@ -1,18 +1,56 @@
 package com.wangindustries.badmintondbbackend.entities;
 
+import com.wangindustries.badmintondbbackend.models.StringingMethod;
 import jakarta.persistence.*;
-
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
-@Table(name = "stringing", schema = "public")
+@Table(schema = "public")
 public class Stringing {
 
-    @Id
-    @Column(name = "stringing_id", nullable = false, unique = true)
-    private UUID stringing_id;
+  @Id
+  @Column(nullable = false, unique = true)
+  private UUID stringing_id;
 
-    @ManyToOne
-    @JoinColumn(name = "stringer_id", nullable = false)
-    private User stringerId;
+  @ManyToOne
+  @JoinColumn(nullable = false)
+  private Users stringerId;
+
+  @Column(nullable = false)
+  private Timestamp requestedTimestamp;
+
+  @Column
+  private Timestamp completedTimestamp;
+
+  @Column
+  private Timestamp lastUpdatedTimestamp;
+
+  @Column
+  private String brand;
+
+  @Column
+  private String model;
+
+  @Column(nullable = false)
+  private int mainTension;
+
+  @Column
+  private Integer mainLength;
+
+  @Column(nullable = false)
+  private int crossTension;
+
+  @Column
+  private Integer crossLength;
+
+  @Column
+  private StringingMethod method;
+
+  @Column
+  private boolean status;
+
+  @Column
+  private String notes;
+
 }
