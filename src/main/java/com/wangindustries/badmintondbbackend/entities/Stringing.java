@@ -32,6 +32,9 @@ public class Stringing {
   @Column
   private String model;
 
+  @Column
+  private String stringName;
+
   @Column(nullable = false)
   private int mainTension;
 
