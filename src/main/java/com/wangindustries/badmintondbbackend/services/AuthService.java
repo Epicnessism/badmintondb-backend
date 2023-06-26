@@ -46,6 +46,13 @@ public class AuthService {
         newUser.setPassword(encryptedPassword);
 
         usersRepository.save(newUser);
+    }
 
+    public String generateJwtToken() {
+        return "test";
+    }
+
+    public String validateJwtToken() {
+        return "test";
     }
 }

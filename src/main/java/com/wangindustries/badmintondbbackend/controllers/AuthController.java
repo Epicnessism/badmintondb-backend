@@ -26,7 +26,7 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
-    @PostMapping(value = "/users/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/auth/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BaseUserResponse> createUser(@RequestBody CreateUserRequestBody createUserRequestBody) {
 
         logger.info("Testing logging of createUsers endpoint: {}", createUserRequestBody);
