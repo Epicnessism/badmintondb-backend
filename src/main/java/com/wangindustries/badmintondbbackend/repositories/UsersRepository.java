@@ -11,5 +11,7 @@ import java.util.UUID;
 public interface UsersRepository extends CrudRepository<User, UUID> {
     User findByGivenNameOrFamilyName(@Param("given_name") String givenName, @Param("family_name") String familyName);
 
-    User findByUsername(@Param("usernanme") String username);
+    User findByUsername(@Param("username") String username);
+
+    User findByUserId(@Param("user_id") UUID userId);
 }

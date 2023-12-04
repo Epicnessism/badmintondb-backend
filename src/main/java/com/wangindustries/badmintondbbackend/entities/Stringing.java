@@ -2,20 +2,33 @@ package com.wangindustries.badmintondbbackend.entities;
 
 import com.wangindustries.badmintondbbackend.models.StringingMethod;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
 @Table(schema = "public")
 public class Stringing {
 
   @Id
   @Column(nullable = false, unique = true)
-  private UUID stringing_id;
+  private UUID stringingId;
 
   @ManyToOne
   @JoinColumn(nullable = false)
-  private User stringerId;
+  private User stringerUser;
+
+  @ManyToOne
+  @JoinColumn(nullable = false)
+  private Racket racket;
 
   @Column(nullable = false)
   private Timestamp requestedTimestamp;
@@ -25,12 +38,6 @@ public class Stringing {
 
   @Column
   private Timestamp lastUpdatedTimestamp;
-
-  @Column
-  private String brand;
-
-  @Column
-  private String model;
 
   @Column
   private String stringName;
@@ -53,9 +60,13 @@ public class Stringing {
   //TODO look into converters.........https://www.baeldung.com/jpa-persisting-enums-in-jpa
 
   @Column
-  private boolean status;
+  private boolean isCompleted;
 
   @Column
   private String notes;
 
+
+  @JoinColumn(referencedColumnName = "user_id")
+  @ManyToOne(targetEntity = User.class)
+  private User requester; //todo: should this be requester?
 }

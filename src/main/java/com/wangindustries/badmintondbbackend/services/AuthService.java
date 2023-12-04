@@ -1,19 +1,22 @@
 package com.wangindustries.badmintondbbackend.services;
 
+import com.wangindustries.badmintondbbackend.controllers.CreateUserException;
 import com.wangindustries.badmintondbbackend.entities.User;
 import com.wangindustries.badmintondbbackend.models.CreateUserRequestBody;
 import com.wangindustries.badmintondbbackend.repositories.UsersRepository;
 import com.wangindustries.badmintondbbackend.utils.PasswordEncoder;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
 @Component
 public class AuthService {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -28,16 +31,18 @@ public class AuthService {
     public boolean validateLogin(final String username, final String password) {
         User foundUser = usersRepository.findByUsername(username);
         if(foundUser == null) {
-            throw new NoSuchElementException("Username not found");
+            return false;
         }
+//        Boolean x = passwordEncoder.verifyPassword(password, foundUser.getPassword());
+//        logger.info(String.valueOf(x));
         return passwordEncoder.verifyPassword(password, foundUser.getPassword());
     }
 
-    public void validateAndCreateNewUserOrThrow(final CreateUserRequestBody body) {
+    public void validateAndCreateNewUser(final CreateUserRequestBody body) {
         String passwordInput = body.getPassword();
         boolean validPassword = passwordPattern.matcher(passwordInput).matches();
         if(!validPassword) {
-            throw new IllegalArgumentException();
+            throw new CreateUserException("invalid password");
         }
 
         String encryptedPassword = passwordEncoder.encryptPassword(passwordInput);

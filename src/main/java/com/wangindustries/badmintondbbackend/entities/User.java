@@ -1,15 +1,7 @@
 package com.wangindustries.badmintondbbackend.entities;
 
 import com.wangindustries.badmintondbbackend.models.Gender;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -43,7 +35,7 @@ public class User {
   @Column
   private String email;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String username;
 
   @Column(nullable = false)
@@ -52,6 +44,7 @@ public class User {
   @Column(nullable = false)
   private Date dateOfBirth;
 
-  @OneToMany(mappedBy = "stringerId")
-  private List<Stringing> stringings;
+  @OneToMany
+  @JoinColumn
+  private List<Racket> rackets;
 }

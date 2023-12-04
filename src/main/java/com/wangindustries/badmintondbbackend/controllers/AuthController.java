@@ -26,15 +26,18 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
-    @PostMapping(value = "/auth/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "auth/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BaseUserResponse> createUser(@RequestBody CreateUserRequestBody createUserRequestBody) {
 
         logger.info("Testing logging of createUsers endpoint: {}", createUserRequestBody);
+
         try {
-            authService.validateAndCreateNewUserOrThrow(createUserRequestBody);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); //todo figure out how to return error responses instead of actual response object format
+            authService.validateAndCreateNewUser(createUserRequestBody);
+        } catch(CreateUserException e) {
+            logger.error(e.getMessage());
+            throw e;
         }
+
         UUID testUUID = UUID.randomUUID();
         return new ResponseEntity<>(new BaseUserResponse("Test Given Name", "Test Family Name 2", testUUID), HttpStatus.CREATED);
     }
@@ -43,10 +46,12 @@ public class AuthController {
     @PostMapping("auth/signin")
     public ResponseEntity<SignInResponse> signInUser(@RequestBody SignInBody signInBody) {
         logger.info("Testing logging of signInUser endpoint: {}", signInBody );
-        authService.validateLogin(signInBody.getUsername(), signInBody.getPassword());
+        if (!authService.validateLogin(signInBody.getUsername(), signInBody.getPassword())) {
+            throw new SignInCredentialsException("Invalid Credentials");
+        }
 
-        //todo shbould probably return a jwt token or something here to store for future accesses?
+        //todo should probably return a jwt token or something here to store for future accesses?
         //todo may need to read up on best practices to implement this
-        return null;
+        return new ResponseEntity<SignInResponse>(new SignInResponse("Tony Wang Test1"), HttpStatus.ACCEPTED);
     }
 }
