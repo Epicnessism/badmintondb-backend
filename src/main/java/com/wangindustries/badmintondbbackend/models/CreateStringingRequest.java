@@ -11,18 +11,13 @@ import java.util.UUID;
 @JsonAutoDetect
 public class CreateStringingRequest {
     private final UUID stringerId;
-    private final UUID racketId;
-    private final UUID ownerId;
+    private final RacketDetails racketToString;
+    private final boolean isNewRacket;
     private final String method;
     private final double price;
-
-    //optional parameters if it's a new racket...
-    private final String make;
-    private final String model;
     private final int mains;
     private final int crosses;
     private final String stringName;
     private final int mainsInMeters;
     private final int crossesInMeters;
-    //...
 }

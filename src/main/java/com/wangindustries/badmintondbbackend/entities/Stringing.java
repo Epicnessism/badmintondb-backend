@@ -2,10 +2,7 @@ package com.wangindustries.badmintondbbackend.entities;
 
 import com.wangindustries.badmintondbbackend.models.StringingMethod;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -15,6 +12,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(schema = "public")
 public class Stringing {
 

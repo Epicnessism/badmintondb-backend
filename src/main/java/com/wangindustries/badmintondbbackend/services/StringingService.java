@@ -8,6 +8,7 @@ import com.wangindustries.badmintondbbackend.models.StringingMethod;
 import com.wangindustries.badmintondbbackend.repositories.RacketRepository;
 import com.wangindustries.badmintondbbackend.repositories.StringingRepository;
 import com.wangindustries.badmintondbbackend.repositories.UsersRepository;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Component
+@Transactional
 public class StringingService {
 
     @Autowired
@@ -37,8 +39,19 @@ public class StringingService {
 
     public Stringing createStringingSession(final CreateStringingRequest createStringingRequest) {
         User stringerUser = usersRepository.findByUserId(createStringingRequest.getStringerId());
-        User requesterUser = usersRepository.findByUserId(createStringingRequest.getOwnerId()); //todo implement requesterUserId in create payload later
-        Racket racketToBeStrung = racketRepository.getByRacketId(createStringingRequest.getRacketId());
+        User requesterUser = usersRepository.findByUserId(createStringingRequest.getRacketToString().getOwnerUserId()); //todo implement requesterUserId in create payload later
+
+        Racket racketToBeStrung = null; //what to do about this if null?
+        if(createStringingRequest.isNewRacket()) {
+            //create a new Racket entity
+            Racket newRacket = new Racket(UUID.randomUUID(), createStringingRequest.getRacketToString().getMake(), createStringingRequest.getRacketToString().getModel(), requesterUser);
+            racketToBeStrung = racketRepository.save(newRacket);
+        } else {
+            //otherwise attempt to get the existing racket
+            racketRepository.getByRacketId(createStringingRequest.getRacketToString().getRacketId());
+        }
+
+
         Stringing stringingToSave = new Stringing(
                 UUID.randomUUID(),
                 stringerUser,
@@ -60,4 +73,17 @@ public class StringingService {
         logger.info("Inserted: {}", insertedStringing);
         return insertedStringing;
     }
+
+//    private Racket findOrCreateRacketById(final CreateStringingRequest createStringingRequest) {
+//        Racket foundRacket = racketRepository.getByRacketId(createStringingRequest.getRacketId());
+//        if(foundRacket != null) {
+//            return foundRacket;
+//        } else {
+//            Racket newRacket = new Racket(
+//                    createStringingRequest.getRacketId(),
+//            );
+//            racketRepository.save()
+//        }
+//
+//    }
 }

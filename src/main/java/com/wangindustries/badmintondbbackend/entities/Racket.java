@@ -1,9 +1,7 @@
 package com.wangindustries.badmintondbbackend.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -11,6 +9,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "racket", schema = "public")
 public class Racket {
     @Id

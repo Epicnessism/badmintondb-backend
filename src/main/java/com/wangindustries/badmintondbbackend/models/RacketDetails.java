@@ -12,5 +12,4 @@ public class RacketDetails {
     private final String make;
     private final String model;
     private final UUID ownerUserId;
-//    private final UUID ownerUserId; //TODO: tbd in future work when racket owner is available
 }
