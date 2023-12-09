@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -32,6 +33,10 @@ public class StringingService {
     RacketRepository racketRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(StringingService.class);
+
+    public List<Stringing> getAllStringingByUserId(final UUID userId) {
+        return stringingRepository.findByStringerUserId(userId);
+    };
 
     public Stringing getStringingById(final UUID stringingId) {
         return stringingRepository.getByStringingId(stringingId);

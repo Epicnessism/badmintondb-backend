@@ -21,8 +21,8 @@ public class Stringing {
   private UUID stringingId;
 
   @ManyToOne
-  @JoinColumn(nullable = false)
-  private User stringerUser;
+  @JoinColumn(referencedColumnName = "user_id", nullable = false)
+  private User stringer;
 
   @ManyToOne
   @JoinColumn(nullable = false)

@@ -11,7 +11,7 @@ public class StringingResponseConverter {
 
 
     public static StringingResponse convertToStringingResponse(final Stringing stringing) {
-        User stringingUser = stringing.getStringerUser();
+        User stringingUser = stringing.getStringer();
         StringerUser stringerUser = new StringerUser(stringingUser.getUserId(), stringingUser.getGivenName(), stringingUser.getFamilyName());
         Racket racket = stringing.getRacket();
         RacketDetails racketDetails = new RacketDetails(racket.getRacketId(), racket.getMake(), racket.getModel(), racket.getOwner().getUserId());
