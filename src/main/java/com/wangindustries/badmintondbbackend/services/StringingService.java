@@ -38,6 +38,10 @@ public class StringingService {
         return stringingRepository.findByStringerUserId(userId);
     };
 
+    public List<Stringing> getAllStringingByUserIdAndCompletedStatus(final UUID userId, final boolean isCompleted) {
+        return stringingRepository.findByStringerUserIdAndIsCompleted(userId, isCompleted);
+    };
+
     public Stringing getStringingById(final UUID stringingId) {
         return stringingRepository.getByStringingId(stringingId);
     }
@@ -46,14 +50,14 @@ public class StringingService {
         User stringerUser = usersRepository.findByUserId(createStringingRequest.getStringerId());
         User requesterUser = usersRepository.findByUserId(createStringingRequest.getRacketToString().getOwnerUserId()); //todo implement requesterUserId in create payload later
 
-        Racket racketToBeStrung = null; //what to do about this if null?
+        Racket racketToBeStrung; //what to do about this if null?
         if(createStringingRequest.isNewRacket()) {
             //create a new Racket entity
             Racket newRacket = new Racket(UUID.randomUUID(), createStringingRequest.getRacketToString().getMake(), createStringingRequest.getRacketToString().getModel(), requesterUser);
             racketToBeStrung = racketRepository.save(newRacket);
         } else {
             //otherwise attempt to get the existing racket
-            racketRepository.getByRacketId(createStringingRequest.getRacketToString().getRacketId());
+            racketToBeStrung = racketRepository.getByRacketId(createStringingRequest.getRacketToString().getRacketId());
         }
 
 

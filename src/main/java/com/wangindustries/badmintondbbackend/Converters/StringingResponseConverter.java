@@ -23,6 +23,7 @@ public class StringingResponseConverter {
                 stringing.getRequestedTimestamp(),
                 stringing.getCompletedTimestamp(),
                 stringing.getLastUpdatedTimestamp(),
+                stringing.isCompleted(),
                 stringing.getNotes()
         );
     }

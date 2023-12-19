@@ -1,7 +1,10 @@
 package com.wangindustries.badmintondbbackend.controllers;
 
+import com.wangindustries.badmintondbbackend.Converters.StringingResponseConverter;
 import com.wangindustries.badmintondbbackend.entities.Stringing;
 import com.wangindustries.badmintondbbackend.models.BaseUserResponse;
+import com.wangindustries.badmintondbbackend.models.ListStringingsResponse;
+import com.wangindustries.badmintondbbackend.models.StringingResponse;
 import com.wangindustries.badmintondbbackend.services.StringingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +34,19 @@ public class UsersController {
     }
 
     @GetMapping("/user/{userId}/stringings")
-    public ResponseEntity<Object> getStringingsForUser(@PathVariable(value = "userId") UUID userId, @RequestParam(value = "completedOnly") boolean completedOnly) {
+    public ResponseEntity<ListStringingsResponse> getStringingsForUser(@PathVariable(value = "userId") UUID userId, @RequestParam(value = "completedOnly", required = false) Boolean completedOnly) {
         logger.info("Got UserId: {} and completedOnly as: {}", userId, completedOnly);
-        List<Stringing> listOfStringings = stringingService.getAllStringingByUserId(userId);
+
+        List<Stringing> listOfStringings;
+
+        if(completedOnly != null) {
+            listOfStringings = stringingService.getAllStringingByUserIdAndCompletedStatus(userId, completedOnly);
+        } else {
+            listOfStringings = stringingService.getAllStringingByUserId(userId);
+        }
+
         logger.info(listOfStringings.toString());
-        return null;
+        List<StringingResponse> stringingResponses = listOfStringings.stream().map(StringingResponseConverter::convertToStringingResponse).toList();
+        return new ResponseEntity<>(new ListStringingsResponse(stringingResponses), HttpStatus.OK);
     }
 }

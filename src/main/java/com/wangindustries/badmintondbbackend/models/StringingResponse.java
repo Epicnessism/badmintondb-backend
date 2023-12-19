@@ -15,6 +15,7 @@ public class StringingResponse {
     private final Date requestedTimestamp;
     private final Date completedTimestamp;
     private final Date lastUpdatedTimestamp;
+    private final boolean isCompleted;
     private final String notes;
 
 }

@@ -12,4 +12,6 @@ public interface StringingRepository extends CrudRepository<Stringing, UUID> {
     Stringing getByStringingId(@Param("stringingId") UUID stringingId);
 
     List<Stringing> findByStringerUserId(@Param("stringingUserId") UUID stringerUserId);
+
+    List<Stringing> findByStringerUserIdAndIsCompleted(@Param("stringingUserId") UUID stringerUserId, @Param("isCompleted") boolean isCompleted);
 }
