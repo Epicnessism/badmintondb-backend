@@ -34,15 +34,33 @@ public class UsersController {
     }
 
     @GetMapping("/user/{userId}/stringings")
-    public ResponseEntity<ListStringingsResponse> getStringingsForUser(@PathVariable(value = "userId") UUID userId, @RequestParam(value = "completedOnly", required = false) Boolean completedOnly) {
+    public ResponseEntity<ListStringingsResponse> getStringingsForUser(
+            @PathVariable(value = "userId") UUID userId,
+            @RequestParam(value = "completedOnly", required = false) Boolean completedOnly, //todo completed only with StringingStatus
+            @RequestParam(value = "stringerOnly", required = false) Boolean stringerOnly,
+            @RequestParam(value = "ownerOnly", required = false) Boolean ownerOnly
+    ) {
         logger.info("Got UserId: {} and completedOnly as: {}", userId, completedOnly);
 
         List<Stringing> listOfStringings;
 
+
         if(completedOnly != null) {
-            listOfStringings = stringingService.getAllStringingByUserIdAndCompletedStatus(userId, completedOnly);
+            if(stringerOnly != null) {
+                listOfStringings = stringingService.getAllStringingByRequesterUserId(userId, completedOnly);
+            } else if(ownerOnly != null) {
+                listOfStringings = stringingService.getAllStringingByRequesterUserId(userId, completedOnly);
+            } else {
+                listOfStringings = stringingService.getAllStringingByUserIdOrRequesterUserId(userId, completedOnly);
+            }
         } else {
-            listOfStringings = stringingService.getAllStringingByUserId(userId);
+            if(stringerOnly != null) {
+                listOfStringings = stringingService.getAllStringingByRequesterUserId(userId);
+            } else if(ownerOnly != null) {
+                listOfStringings = stringingService.getAllStringingByRequesterUserId(userId);
+            } else {
+                listOfStringings = stringingService.getAllStringingByUserIdOrRequesterUserId(userId);
+            }
         }
 
         logger.info(listOfStringings.toString());

@@ -17,5 +17,5 @@ public class StringingResponse {
     private final Date lastUpdatedTimestamp;
     private final boolean isCompleted;
     private final String notes;
-
+    private final double price;
 }

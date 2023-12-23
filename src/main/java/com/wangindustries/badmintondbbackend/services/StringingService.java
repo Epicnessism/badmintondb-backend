@@ -1,10 +1,12 @@
 package com.wangindustries.badmintondbbackend.services;
 
+import com.wangindustries.badmintondbbackend.Mappers.StringingMapper;
 import com.wangindustries.badmintondbbackend.entities.Racket;
 import com.wangindustries.badmintondbbackend.entities.Stringing;
 import com.wangindustries.badmintondbbackend.entities.User;
 import com.wangindustries.badmintondbbackend.models.CreateStringingRequest;
-import com.wangindustries.badmintondbbackend.models.StringingMethod;
+import com.wangindustries.badmintondbbackend.models.PatchStringingRequestBody;
+import com.wangindustries.badmintondbbackend.models.enums.StringingMethod;
 import com.wangindustries.badmintondbbackend.repositories.RacketRepository;
 import com.wangindustries.badmintondbbackend.repositories.StringingRepository;
 import com.wangindustries.badmintondbbackend.repositories.UsersRepository;
@@ -32,19 +34,48 @@ public class StringingService {
     @Autowired
     RacketRepository racketRepository;
 
+    @Autowired
+    StringingMapper stringingMapper;
+
     private static final Logger logger = LoggerFactory.getLogger(StringingService.class);
 
     public List<Stringing> getAllStringingByUserId(final UUID userId) {
         return stringingRepository.findByStringerUserId(userId);
     };
 
-    public List<Stringing> getAllStringingByUserIdAndCompletedStatus(final UUID userId, final boolean isCompleted) {
+    public List<Stringing> getAllStringingByUserId(final UUID userId, final boolean isCompleted) {
         return stringingRepository.findByStringerUserIdAndIsCompleted(userId, isCompleted);
     };
+
+
+    public List<Stringing> getAllStringingByRequesterUserId(final UUID userId) {
+        return stringingRepository.findByRequesterUserId(userId);
+    }
+
+    public List<Stringing> getAllStringingByRequesterUserId(final UUID userId, final boolean isCompleted) {
+        return stringingRepository.findByRequesterUserIdAndIsCompleted(userId, isCompleted);
+    }
+
+
+    public List<Stringing> getAllStringingByUserIdOrRequesterUserId(final UUID userId) {
+        return stringingRepository.findByStringerUserIdOrRequesterUserId(userId, userId);
+    }
+
+    public List<Stringing> getAllStringingByUserIdOrRequesterUserId(final UUID userId, final boolean isCompleted) {
+        return stringingRepository.findByStringerUserIdOrRequesterUserIdAndIsCompleted(userId, userId, isCompleted);
+    };
+
 
     public Stringing getStringingById(final UUID stringingId) {
         return stringingRepository.getByStringingId(stringingId);
     }
+
+    public Stringing patchStringingSessionById(final UUID stringingId, final PatchStringingRequestBody patchStringingRequestBody) {
+        Stringing foundStringing = stringingRepository.getByStringingId(stringingId);
+        stringingMapper.updateStringingFromPatchStringingRequestBody(patchStringingRequestBody, foundStringing);
+        return stringingRepository.save(foundStringing);
+    }
+
 
     public Stringing createStringingSession(final CreateStringingRequest createStringingRequest) {
         User stringerUser = usersRepository.findByUserId(createStringingRequest.getStringerId());
@@ -75,6 +106,7 @@ public class StringingService {
                 createStringingRequest.getCrossesInMeters(),
                 StringingMethod.valueOf(createStringingRequest.getMethod()),
                 false,
+                createStringingRequest.getPrice(),
                 "Notes to be implemented later",
                 requesterUser
         );

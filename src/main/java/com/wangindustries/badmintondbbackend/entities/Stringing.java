@@ -1,6 +1,6 @@
 package com.wangindustries.badmintondbbackend.entities;
 
-import com.wangindustries.badmintondbbackend.models.StringingMethod;
+import com.wangindustries.badmintondbbackend.models.enums.StringingMethod;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -59,6 +59,9 @@ public class Stringing {
 
   @Column
   private boolean isCompleted;
+
+  @Column
+  private double price;
 
   @Column
   private String notes;

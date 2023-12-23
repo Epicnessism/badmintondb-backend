@@ -1,4 +1,4 @@
-package com.wangindustries.badmintondbbackend.models;
+package com.wangindustries.badmintondbbackend.models.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

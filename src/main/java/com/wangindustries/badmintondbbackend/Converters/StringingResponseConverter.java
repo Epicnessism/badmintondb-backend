@@ -24,7 +24,8 @@ public class StringingResponseConverter {
                 stringing.getCompletedTimestamp(),
                 stringing.getLastUpdatedTimestamp(),
                 stringing.isCompleted(),
-                stringing.getNotes()
+                stringing.getNotes(),
+                stringing.getPrice()
         );
     }
 }

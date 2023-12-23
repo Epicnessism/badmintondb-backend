@@ -2,6 +2,7 @@ package com.wangindustries.badmintondbbackend.controllers;
 
 import com.wangindustries.badmintondbbackend.entities.Stringing;
 import com.wangindustries.badmintondbbackend.models.CreateStringingRequest;
+import com.wangindustries.badmintondbbackend.models.PatchStringingRequestBody;
 import com.wangindustries.badmintondbbackend.models.StringingResponse;
 import com.wangindustries.badmintondbbackend.services.StringingService;
 import org.slf4j.Logger;
@@ -37,5 +38,11 @@ public class StringingController {
         Stringing insertedStringing = stringingService.createStringingSession(createStringingRequest);
 //        return new ResponseEntity<>(StringingResponse);
         return new ResponseEntity<StringingResponse>(convertToStringingResponse(insertedStringing),HttpStatus.CREATED);
+    }
+
+    @PatchMapping(value = "stringing/{stringingId}")
+    public ResponseEntity<StringingResponse> patchStringingById(@PathVariable UUID stringingId, @RequestBody PatchStringingRequestBody patchStringingRequestBody) {
+        Stringing patchedStringing = stringingService.patchStringingSessionById(stringingId, patchStringingRequestBody);
+        return new ResponseEntity<StringingResponse>(convertToStringingResponse(patchedStringing), HttpStatus.OK);
     }
 }
