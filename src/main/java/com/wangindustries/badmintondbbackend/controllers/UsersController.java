@@ -1,7 +1,7 @@
 package com.wangindustries.badmintondbbackend.controllers;
 
 import com.wangindustries.badmintondbbackend.Converters.StringingResponseConverter;
-import com.wangindustries.badmintondbbackend.entities.Stringing;
+import com.wangindustries.badmintondbbackend.Entities.Stringing;
 import com.wangindustries.badmintondbbackend.models.BaseUserResponse;
 import com.wangindustries.badmintondbbackend.models.ListStringingsResponse;
 import com.wangindustries.badmintondbbackend.models.StringingResponse;

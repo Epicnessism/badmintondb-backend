@@ -1,6 +1,6 @@
 package com.wangindustries.badmintondbbackend.repositories;
 
-import com.wangindustries.badmintondbbackend.entities.Racket;
+import com.wangindustries.badmintondbbackend.Entities.Racket;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 

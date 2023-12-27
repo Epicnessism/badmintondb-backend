@@ -1,8 +1,8 @@
 package com.wangindustries.badmintondbbackend.Converters;
 
-import com.wangindustries.badmintondbbackend.entities.Racket;
-import com.wangindustries.badmintondbbackend.entities.Stringing;
-import com.wangindustries.badmintondbbackend.entities.User;
+import com.wangindustries.badmintondbbackend.Entities.Racket;
+import com.wangindustries.badmintondbbackend.Entities.Stringing;
+import com.wangindustries.badmintondbbackend.Entities.User;
 import com.wangindustries.badmintondbbackend.models.RacketDetails;
 import com.wangindustries.badmintondbbackend.models.StringerUser;
 import com.wangindustries.badmintondbbackend.models.StringingResponse;

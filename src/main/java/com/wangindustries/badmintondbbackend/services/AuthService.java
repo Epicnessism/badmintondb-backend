@@ -1,7 +1,7 @@
 package com.wangindustries.badmintondbbackend.services;
 
 import com.wangindustries.badmintondbbackend.controllers.CreateUserException;
-import com.wangindustries.badmintondbbackend.entities.User;
+import com.wangindustries.badmintondbbackend.Entities.User;
 import com.wangindustries.badmintondbbackend.models.CreateUserRequestBody;
 import com.wangindustries.badmintondbbackend.repositories.UsersRepository;
 import com.wangindustries.badmintondbbackend.utils.PasswordEncoder;

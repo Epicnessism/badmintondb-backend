@@ -1,4 +1,4 @@
-package com.wangindustries.badmintondbbackend.entities;
+package com.wangindustries.badmintondbbackend.Entities;
 
 import com.wangindustries.badmintondbbackend.models.Gender;
 import jakarta.persistence.*;
