@@ -4,6 +4,7 @@ import com.wangindustries.badmintondbbackend.Mappers.StringingMapper;
 import com.wangindustries.badmintondbbackend.Entities.Racket;
 import com.wangindustries.badmintondbbackend.Entities.Stringing;
 import com.wangindustries.badmintondbbackend.Entities.User;
+import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByStringerUserId;
 import com.wangindustries.badmintondbbackend.models.CreateStringingRequest;
 import com.wangindustries.badmintondbbackend.models.PatchStringingRequestBody;
 import com.wangindustries.badmintondbbackend.models.enums.StringingMethod;
@@ -39,11 +40,11 @@ public class StringingService {
 
     private static final Logger logger = LoggerFactory.getLogger(StringingService.class);
 
-    public List<Stringing> getAllStringingByUserId(final UUID userId) {
+    public List<Stringing> getAllStringingByStringerUserId(final UUID userId) {
         return stringingRepository.findByStringerUserId(userId);
     };
 
-    public List<Stringing> getAllStringingByUserId(final UUID userId, final boolean isCompleted) {
+    public List<Stringing> getAllStringingByStringerUserId(final UUID userId, final boolean isCompleted) {
         return stringingRepository.findByStringerUserIdAndIsCompleted(userId, isCompleted);
     };
 
@@ -115,16 +116,7 @@ public class StringingService {
         return insertedStringing;
     }
 
-//    private Racket findOrCreateRacketById(final CreateStringingRequest createStringingRequest) {
-//        Racket foundRacket = racketRepository.getByRacketId(createStringingRequest.getRacketId());
-//        if(foundRacket != null) {
-//            return foundRacket;
-//        } else {
-//            Racket newRacket = new Racket(
-//                    createStringingRequest.getRacketId(),
-//            );
-//            racketRepository.save()
-//        }
-//
-//    }
+    public List<AggregateStringingDataByStringerUserId> getAggregateStringingDataByStringerUserId(final UUID stringerUserId) {
+        return stringingRepository.getAggregateDataByStringerUserId(stringerUserId);
+    }
 }

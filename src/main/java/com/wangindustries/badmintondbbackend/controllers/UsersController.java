@@ -2,6 +2,7 @@ package com.wangindustries.badmintondbbackend.controllers;
 
 import com.wangindustries.badmintondbbackend.Converters.StringingResponseConverter;
 import com.wangindustries.badmintondbbackend.Entities.Stringing;
+import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByStringerUserId;
 import com.wangindustries.badmintondbbackend.models.BaseUserResponse;
 import com.wangindustries.badmintondbbackend.models.ListStringingsResponse;
 import com.wangindustries.badmintondbbackend.models.StringingResponse;
@@ -46,17 +47,17 @@ public class UsersController {
 
 
         if(completedOnly != null) {
-            if(stringerOnly != null) {
+            if(stringerOnly != null && stringerOnly) {
                 listOfStringings = stringingService.getAllStringingByRequesterUserId(userId, completedOnly);
-            } else if(ownerOnly != null) {
-                listOfStringings = stringingService.getAllStringingByRequesterUserId(userId, completedOnly);
+            } else if(ownerOnly != null && ownerOnly) {
+                listOfStringings = stringingService.getAllStringingByStringerUserId(userId, completedOnly);
             } else {
                 listOfStringings = stringingService.getAllStringingByUserIdOrRequesterUserId(userId, completedOnly);
             }
         } else {
-            if(stringerOnly != null) {
-                listOfStringings = stringingService.getAllStringingByRequesterUserId(userId);
-            } else if(ownerOnly != null) {
+            if(stringerOnly != null && stringerOnly) {
+                listOfStringings = stringingService.getAllStringingByStringerUserId(userId);
+            } else if(ownerOnly != null && ownerOnly) {
                 listOfStringings = stringingService.getAllStringingByRequesterUserId(userId);
             } else {
                 listOfStringings = stringingService.getAllStringingByUserIdOrRequesterUserId(userId);
@@ -66,5 +67,10 @@ public class UsersController {
         logger.info(listOfStringings.toString());
         List<StringingResponse> stringingResponses = listOfStringings.stream().map(StringingResponseConverter::convertToStringingResponse).toList();
         return new ResponseEntity<>(new ListStringingsResponse(stringingResponses), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{userId}/analytical/aggregate")
+    public ResponseEntity<List<AggregateStringingDataByStringerUserId>> getAggregateStringingDataForAnUser(@PathVariable(value = "userId") UUID userId) { //todo implement stringerUser vs requesterUser, etc, etc
+        return new ResponseEntity<>(stringingService.getAggregateStringingDataByStringerUserId(userId), HttpStatus.OK);
     }
 }
