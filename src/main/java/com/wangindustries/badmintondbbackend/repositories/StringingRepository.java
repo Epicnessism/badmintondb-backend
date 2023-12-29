@@ -30,14 +30,15 @@ public interface StringingRepository extends CrudRepository<Stringing, UUID> {
     //get aggregate values by user for stringings
     @Query("SELECT new com.wangindustries.badmintondbbackend.models.AggregateStringingDataByStringerUserId(" +
             "s.stringer.userId as stringerUserId, " +
-            "count(*) as totalCount," +
-            "sum(price) as totalPrice," +
-            "avg(price) as totalAverage_price," +
+            "COUNT(*) as totalCount," +
+            "SUM(price) as totalPrice," +
+            "AVG(price) as totalAveragePrice," +
+            "COALESCE(SUM(1) FILTER (WHERE s.isCompleted = true AND s.stringer.userId <> s.requester.userId), 0) as totalCompletedStringsNotIncludingUser," +
             "min(price) as minimumPrice," +
             "max(price) as maximumPrice," +
-            "coalesce(sum(1) FILTER (where s.isCompleted = true), 0) as numberOfCompleted," +
-            "coalesce(sum(1) FILTER (where s.isCompleted = false), 0) as numberNotCompleted)" +
+            "COALESCE(SUM(1) FILTER (WHERE s.isCompleted = true), 0) as numberOfCompleted," +
+            "COALESCE(SUM(1) FILTER (WHERE s.isCompleted = false), 0) as numberNotCompleted)" +
             "FROM Stringing s where s.stringer.userId = :stringerUserId " +
-            "group by s.stringer.userId")
+            "GROUP BY s.stringer.userId")
     List<AggregateStringingDataByStringerUserId> getAggregateDataByStringerUserId(@Param("stringerUserId") UUID stringerUserId);
 }
