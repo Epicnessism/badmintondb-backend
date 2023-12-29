@@ -95,8 +95,6 @@ public class StringingService {
 
         Stringing stringingToSave = new Stringing(
                 UUID.randomUUID(),
-                stringerUser,
-                racketToBeStrung,
                 Timestamp.from(Instant.now()),
                 null,
                 null,
@@ -109,6 +107,8 @@ public class StringingService {
                 false,
                 createStringingRequest.getPrice(),
                 "Notes to be implemented later",
+                racketToBeStrung,
+                stringerUser,
                 requesterUser
         );
         Stringing insertedStringing = stringingRepository.save(stringingToSave);

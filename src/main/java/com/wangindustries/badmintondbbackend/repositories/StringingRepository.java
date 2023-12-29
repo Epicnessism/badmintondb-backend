@@ -35,8 +35,8 @@ public interface StringingRepository extends CrudRepository<Stringing, UUID> {
             "avg(price) as totalAverage_price," +
             "min(price) as minimumPrice," +
             "max(price) as maximumPrice," +
-            "sum(1) FILTER (where s.isCompleted = true) as numberOfCompleted," +
-            "sum(1) FILTER (where s.isCompleted = false) as numberNotCompleted)" +
+            "coalesce(sum(1) FILTER (where s.isCompleted = true), 0) as numberOfCompleted," +
+            "coalesce(sum(1) FILTER (where s.isCompleted = false), 0) as numberNotCompleted)" +
             "FROM Stringing s where s.stringer.userId = :stringerUserId " +
             "group by s.stringer.userId")
     List<AggregateStringingDataByStringerUserId> getAggregateDataByStringerUserId(@Param("stringerUserId") UUID stringerUserId);
