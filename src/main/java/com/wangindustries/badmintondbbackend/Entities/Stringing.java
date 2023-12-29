@@ -20,14 +20,6 @@ public class Stringing {
   @Column(nullable = false, unique = true)
   private UUID stringingId;
 
-  @ManyToOne
-  @JoinColumn(referencedColumnName = "user_id", nullable = false)
-  private User stringer;
-
-  @ManyToOne
-  @JoinColumn(nullable = false)
-  private Racket racket;
-
   @Column(nullable = false)
   private Timestamp requestedTimestamp;
 
@@ -66,6 +58,13 @@ public class Stringing {
   @Column
   private String notes;
 
+  @ManyToOne
+  @JoinColumn(nullable = false)
+  private Racket racket;
+
+  @ManyToOne
+  @JoinColumn(referencedColumnName = "user_id", nullable = false)
+  private User stringer;
 
   @JoinColumn(referencedColumnName = "user_id")
   @ManyToOne(targetEntity = User.class)
