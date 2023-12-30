@@ -3,9 +3,10 @@ package com.wangindustries.badmintondbbackend.controllers;
 import com.wangindustries.badmintondbbackend.Converters.StringingResponseConverter;
 import com.wangindustries.badmintondbbackend.Entities.Stringing;
 import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByStringerUserId;
-import com.wangindustries.badmintondbbackend.models.BaseUserResponse;
 import com.wangindustries.badmintondbbackend.models.ListStringingsResponse;
+import com.wangindustries.badmintondbbackend.models.RacketDetails;
 import com.wangindustries.badmintondbbackend.models.StringingResponse;
+import com.wangindustries.badmintondbbackend.services.RacketService;
 import com.wangindustries.badmintondbbackend.services.StringingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +28,15 @@ public class UsersController {
     @Autowired
     StringingService stringingService;
 
-    @GetMapping("/users")
-    public ResponseEntity<BaseUserResponse> getUser(@RequestParam(value = "name") String userInputName) {
-        logger.info("Testing logging of getUser endpoint");
-        UUID testUUID = UUID.randomUUID();
-        return new ResponseEntity<>(new BaseUserResponse(userInputName, "Test Family Name", testUUID), HttpStatus.OK);
-    }
+    @Autowired
+    RacketService racketService;
+
+//    @GetMapping("/users")
+//    public ResponseEntity<BaseUserResponse> getUser(@RequestParam(value = "name") String userInputName) {
+//        logger.info("Testing logging of getUser endpoint");
+//        UUID testUUID = UUID.randomUUID();
+//        return new ResponseEntity<>(new BaseUserResponse(userInputName, "Test Family Name", testUUID), HttpStatus.OK);
+//    }
 
     @GetMapping("/user/{userId}/stringings")
     public ResponseEntity<ListStringingsResponse> getStringingsForUser(
@@ -72,5 +76,10 @@ public class UsersController {
     @GetMapping("/user/{userId}/analytical/aggregate")
     public ResponseEntity<List<AggregateStringingDataByStringerUserId>> getAggregateStringingDataForAnUser(@PathVariable(value = "userId") UUID userId) { //todo implement stringerUser vs requesterUser, etc, etc
         return new ResponseEntity<>(stringingService.getAggregateStringingDataByStringerUserId(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{userId}/racket/all")
+    public ResponseEntity<List<RacketDetails>> getAllRacketsForAnUser(@PathVariable(value = "userId") UUID userId) {
+        return new ResponseEntity<>(racketService.getAllRacketsByOwnerId(userId), HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package com.wangindustries.badmintondbbackend.controllers;
 
+import com.wangindustries.badmintondbbackend.Exceptions.CreateUserException;
 import com.wangindustries.badmintondbbackend.Exceptions.SignInCredentialsException;
 import com.wangindustries.badmintondbbackend.models.BaseUserResponse;
 import com.wangindustries.badmintondbbackend.models.CreateUserRequestBody;
