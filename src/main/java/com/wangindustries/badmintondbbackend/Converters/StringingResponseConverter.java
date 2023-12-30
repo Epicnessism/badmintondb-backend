@@ -8,6 +8,7 @@ import com.wangindustries.badmintondbbackend.models.RacketDetails;
 import com.wangindustries.badmintondbbackend.models.StringDetails;
 import com.wangindustries.badmintondbbackend.models.StringerUser;
 import com.wangindustries.badmintondbbackend.models.StringingResponse;
+import com.wangindustries.badmintondbbackend.models.UserDetails;
 
 public class StringingResponseConverter {
 
@@ -15,8 +16,11 @@ public class StringingResponseConverter {
     public static StringingResponse convertToStringingResponse(final Stringing stringing) {
         User stringingUser = stringing.getStringer();
         StringerUser stringerUser = new StringerUser(stringingUser.getUserId(), stringingUser.getGivenName(), stringingUser.getFamilyName());
+
         Racket racket = stringing.getRacket();
-        RacketDetails racketDetails = new RacketDetails(racket.getRacketId(), racket.getMake(), racket.getModel(), racket.getOwner().getUserId());
+        UserDetails ownerUser = new UserDetails(racket.getRacketId(), stringing.getRequester().getGivenName(), stringing.getRequester().getFamilyName());
+        RacketDetails racketDetails = new RacketDetails(racket.getRacketId(), racket.getMake(), racket.getModel(), ownerUser);
+
         StringEntity mainString = stringing.getStringMains();
         StringDetails mainStringDetails = new StringDetails(mainString.getId(), mainString.getModel(), mainString.getMake(), mainString.getColor());
         StringEntity crossString = stringing.getStringCrosses();

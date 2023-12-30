@@ -86,7 +86,7 @@ public class StringingService {
 
     public Stringing createStringingSession(final CreateStringingRequest createStringingRequest) {
         User stringerUser = usersRepository.findByUserId(createStringingRequest.getStringerId());
-        User requesterUser = usersRepository.findByUserId(createStringingRequest.getRacketToString().getOwnerUserId()); //todo implement requesterUserId in create payload later
+        User requesterUser = usersRepository.findByUserId(createStringingRequest.getRacketToString().getOwnerDetails().getUserId()); //todo implement requesterUserId in create payload later
         Racket racketToBeStrung; //what to do about this if null?
         StringEntity stringEntityMains = stringEntityRepository.findById(createStringingRequest.getStringEntityMains()).orElseThrow(); //todo what if desn't exist yet? currently just throw
         StringEntity stringEntityCrosses = createStringingRequest.getStringEntityMains() == createStringingRequest.getStringEntityCrosses() ? stringEntityMains : stringEntityRepository.findById(createStringingRequest.getStringEntityCrosses()).orElseThrow();

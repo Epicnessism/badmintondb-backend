@@ -11,5 +11,6 @@ public class RacketDetails {
     private final UUID racketId;
     private final String make;
     private final String model;
-    private final UUID ownerUserId;
+//    private final UUID ownerUserId;
+    private final UserDetails ownerDetails;
 }
