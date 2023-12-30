@@ -1,9 +1,11 @@
 package com.wangindustries.badmintondbbackend.Converters;
 
 import com.wangindustries.badmintondbbackend.Entities.Racket;
+import com.wangindustries.badmintondbbackend.Entities.StringEntity;
 import com.wangindustries.badmintondbbackend.Entities.Stringing;
 import com.wangindustries.badmintondbbackend.Entities.User;
 import com.wangindustries.badmintondbbackend.models.RacketDetails;
+import com.wangindustries.badmintondbbackend.models.StringDetails;
 import com.wangindustries.badmintondbbackend.models.StringerUser;
 import com.wangindustries.badmintondbbackend.models.StringingResponse;
 
@@ -15,6 +17,11 @@ public class StringingResponseConverter {
         StringerUser stringerUser = new StringerUser(stringingUser.getUserId(), stringingUser.getGivenName(), stringingUser.getFamilyName());
         Racket racket = stringing.getRacket();
         RacketDetails racketDetails = new RacketDetails(racket.getRacketId(), racket.getMake(), racket.getModel(), racket.getOwner().getUserId());
+        StringEntity mainString = stringing.getStringMains();
+        StringDetails mainStringDetails = new StringDetails(mainString.getId(), mainString.getModel(), mainString.getMake(), mainString.getColor());
+        StringEntity crossString = stringing.getStringCrosses();
+        StringDetails crpssStringDetails = new StringDetails(crossString.getId(), crossString.getModel(), crossString.getMake(), crossString.getColor());
+        //todo add stringingStatus and StringType, etc, etc
 
         return new StringingResponse(
                 stringing.getStringingId(),
@@ -24,8 +31,11 @@ public class StringingResponseConverter {
                 stringing.getCompletedTimestamp(),
                 stringing.getLastUpdatedTimestamp(),
                 stringing.isCompleted(),
+                stringing.getStatus(),
                 stringing.getNotes(),
-                stringing.getPrice()
+                stringing.getPrice(),
+                mainStringDetails,
+                crpssStringDetails
         );
     }
 }

@@ -23,7 +23,7 @@ public interface StringingRepository extends CrudRepository<Stringing, UUID> {
 
     List<Stringing> findByRequesterUserIdAndIsCompleted(@Param("requesterUserId") UUID requesterUserId, @Param("isCompleted") boolean isCompleted);
 
-    @Query("SELECT s FROM Stringing s where (s.stringer.userId = ?1 or s.requester.userId = ?2) and s.isCompleted = ?3")
+    @Query("SELECT s FROM Stringing s where (s.stringer.userId = :stringingUserId or s.requester.userId = :requesterUserId) and s.isCompleted = :isCompleted")
     List<Stringing> findByStringerUserIdOrRequesterUserIdAndIsCompleted(@Param("stringingUserId") UUID stringerUserId, @Param("requesterUserId") UUID requesterUserId, @Param("isCompleted") boolean isCompleted);
 
 

@@ -1,6 +1,6 @@
 package com.wangindustries.badmintondbbackend.Entities;
 
-import com.wangindustries.badmintondbbackend.models.Gender;
+import com.wangindustries.badmintondbbackend.models.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

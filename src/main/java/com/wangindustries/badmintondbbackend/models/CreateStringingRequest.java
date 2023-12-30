@@ -17,7 +17,8 @@ public class CreateStringingRequest {
     private final double price;
     private final int mains;
     private final int crosses;
-    private final String stringName;
+    private final UUID stringEntityMains;
+    private final UUID stringEntityCrosses;
     private final int mainsInMeters;
     private final int crossesInMeters;
 }

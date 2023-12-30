@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum StringingStatus {
+    CREATED("Created","Stringing Request Created"),
     PENDING("Pending","Pending something?"),
     REJECTED("Rejected","Rejected by stringer"),
     DELIVERED("Delivered","Delivered to the stringer"),

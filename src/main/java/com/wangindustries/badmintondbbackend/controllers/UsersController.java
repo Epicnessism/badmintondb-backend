@@ -66,7 +66,7 @@ public class UsersController {
 
         logger.info(listOfStringings.toString());
         List<StringingResponse> stringingResponses = listOfStringings.stream().map(StringingResponseConverter::convertToStringingResponse).toList();
-        return new ResponseEntity<>(new ListStringingsResponse(stringingResponses), HttpStatus.OK);
+        return new ResponseEntity<>(new ListStringingsResponse(stringingResponses.size(), stringingResponses), HttpStatus.OK);
     }
 
     @GetMapping("/user/{userId}/analytical/aggregate")
