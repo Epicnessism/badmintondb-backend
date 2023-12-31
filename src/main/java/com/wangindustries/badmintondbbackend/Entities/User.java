@@ -35,6 +35,9 @@ public class User {
   @Column
   private String email;
 
+  @Column
+  private boolean isStringer;
+
   @Column(nullable = false, unique = true)
   private String username;
 

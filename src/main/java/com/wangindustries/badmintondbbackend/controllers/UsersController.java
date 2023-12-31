@@ -6,8 +6,10 @@ import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByStri
 import com.wangindustries.badmintondbbackend.models.ListStringingsResponse;
 import com.wangindustries.badmintondbbackend.models.RacketDetails;
 import com.wangindustries.badmintondbbackend.models.StringingResponse;
+import com.wangindustries.badmintondbbackend.models.UserDetails;
 import com.wangindustries.badmintondbbackend.services.RacketService;
 import com.wangindustries.badmintondbbackend.services.StringingService;
+import com.wangindustries.badmintondbbackend.services.UsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +31,15 @@ public class UsersController {
     StringingService stringingService;
 
     @Autowired
+    UsersService usersService;
+
+    @Autowired
     RacketService racketService;
 
-//    @GetMapping("/users")
-//    public ResponseEntity<BaseUserResponse> getUser(@RequestParam(value = "name") String userInputName) {
-//        logger.info("Testing logging of getUser endpoint");
-//        UUID testUUID = UUID.randomUUID();
-//        return new ResponseEntity<>(new BaseUserResponse(userInputName, "Test Family Name", testUUID), HttpStatus.OK);
-//    }
+    @GetMapping("/user/stringers")
+    public ResponseEntity<List<UserDetails>> getStringers() {
+        return new ResponseEntity<>(usersService.getAllStringers(), HttpStatus.OK);
+    }
 
     @GetMapping("/user/{userId}/stringings")
     public ResponseEntity<ListStringingsResponse> getStringingsForUser(

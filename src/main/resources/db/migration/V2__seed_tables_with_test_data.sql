@@ -1,13 +1,13 @@
 insert into public.users
-(user_id, email, family_name, given_name, gender, date_of_birth, username, "password")
+(user_id, email, family_name, given_name, is_stringer, gender, date_of_birth, username, "password")
 values
-('92cba104-c922-4852-a683-b32ffd21b109', 'tony_test@gmail.com', 'Wang', 'Tony', 'MALE', '06/21/1997', 'test1234', 'some rando password'),
-('11cba104-c922-4852-a683-b32ffd21b109', 'zoe_test123@gmail.com', 'Xu', 'Zoe', 'FEMALE', '03/20/1996', 'test2233', 'some rando password2'),
-('123ba104-c922-4852-a683-b32ffd21b109', 'jonny_test1111@gmail.com', 'Wang', 'Andrew', 'MALE', '12/11/1970', 'test4321', 'some rando password2222'),
-('54dcec7e-2ef1-477f-bd9b-27396cc4a277', 'alan_murphy2020@gmail.com', 'Hidaki', 'Remy', 'FEMALE', '12/11/2004', 'testtest', 'some rando pa33332'),
-('f837531f-59d4-401a-bfa3-68822983922c', 'someEmailTan@gmail.com', 'Farrell', 'Emma', 'FEMALE', '12/11/2014', 'testemma', 'some rando eeeee33332'),
-('6db517cb-28d9-421b-b0f6-211679b09307', 'GeorgeEmail@gmail.com', 'Zhu', 'George', 'MALE', '12/11/1988', 'testzhu', 'some rando 33333'),
-('ba9ed17a-b785-4d67-ba2a-e71051dbab3f', 'KyrstalsEmail1@gmail.com', 'Pham', 'Krystal', 'FEMALE', '12/11/1990', 'testpham', 'some rando 123123')
+('92cba104-c922-4852-a683-b32ffd21b109', 'tony_test@gmail.com', 'Wang', 'Tony', true, 'MALE', '06/21/1997', 'test1234', 'some rando password'),
+('11cba104-c922-4852-a683-b32ffd21b109', 'zoe_test123@gmail.com', 'Xu', 'Zoe', false, 'FEMALE', '03/20/1996', 'test2233', 'some rando password2'),
+('123ba104-c922-4852-a683-b32ffd21b109', 'jonny_test1111@gmail.com', 'Wang', 'Andrew', false, 'MALE', '12/11/1970', 'test4321', 'some rando password2222'),
+('54dcec7e-2ef1-477f-bd9b-27396cc4a277', 'alan_murphy2020@gmail.com', 'Hidaki', 'Remy', false, 'FEMALE', '12/11/2004', 'testtest', 'some rando pa33332'),
+('f837531f-59d4-401a-bfa3-68822983922c', 'someEmailTan@gmail.com', 'Farrell', 'Emma', false, 'FEMALE', '12/11/2014', 'testemma', 'some rando eeeee33332'),
+('6db517cb-28d9-421b-b0f6-211679b09307', 'GeorgeEmail@gmail.com', 'Zhu', 'George', false, 'MALE', '12/11/1988', 'testzhu', 'some rando 33333'),
+('ba9ed17a-b785-4d67-ba2a-e71051dbab3f', 'KyrstalsEmail1@gmail.com', 'Pham', 'Krystal', false, 'FEMALE', '12/11/1990', 'testpham', 'some rando 123123')
 ;
 
 

@@ -7,6 +7,7 @@ CREATE TABLE public.users (
 	given_name varchar(255) NULL,
 	"password" varchar(255) NOT NULL,
 	username varchar(255) NOT NULL,
+	is_stringer bool,
 	CONSTRAINT users_gender_check CHECK (((gender)::text = ANY ((ARRAY['MALE'::character varying, 'FEMALE'::character varying, 'OTHER'::character varying])::text[]))),
 	CONSTRAINT users_pkey PRIMARY KEY (user_id),
 	CONSTRAINT users_username_key UNIQUE (username)
