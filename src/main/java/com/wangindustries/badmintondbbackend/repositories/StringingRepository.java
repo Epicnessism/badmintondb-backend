@@ -1,6 +1,7 @@
 package com.wangindustries.badmintondbbackend.repositories;
 
 import com.wangindustries.badmintondbbackend.Entities.Stringing;
+import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByRequesterUserId;
 import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByStringerUserId;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -33,7 +34,7 @@ public interface StringingRepository extends CrudRepository<Stringing, UUID> {
             "COUNT(*) as totalCount," +
             "SUM(price) as totalPrice," +
             "AVG(price) as totalAveragePrice," +
-            "COALESCE(SUM(1) FILTER (WHERE s.isCompleted = true AND s.stringer.userId <> s.requester.userId), 0) as totalCompletedStringsNotIncludingUser," +
+            "COALESCE(SUM(1) FILTER (WHERE s.isCompleted = true AND s.stringer.userId <> s.requester.userId), 0) as totalCompletedStringingsNotIncludingUser," +
             "min(price) as minimumPrice," +
             "max(price) as maximumPrice," +
             "COALESCE(SUM(1) FILTER (WHERE s.isCompleted = true), 0) as numberOfCompleted," +
@@ -41,4 +42,18 @@ public interface StringingRepository extends CrudRepository<Stringing, UUID> {
             "FROM Stringing s where s.stringer.userId = :stringerUserId " +
             "GROUP BY s.stringer.userId")
     List<AggregateStringingDataByStringerUserId> getAggregateDataByStringerUserId(@Param("stringerUserId") UUID stringerUserId);
+
+
+    @Query("SELECT new com.wangindustries.badmintondbbackend.models.AggregateStringingDataByRequesterUserId(" +
+            "s.requester.userId as requesterUserId, " +
+            "COUNT(*) as totalCount," +
+            "SUM(price) as totalPrice," +
+            "AVG(price) as totalAveragePrice," +
+            "min(price) as minimumPrice," +
+            "max(price) as maximumPrice," +
+            "COALESCE(SUM(1) FILTER (WHERE s.isCompleted = true), 0) as numberOfCompleted," +
+            "COALESCE(SUM(1) FILTER (WHERE s.isCompleted = false), 0) as numberNotCompleted)" +
+            "FROM Stringing s where s.requester.userId = :requesterUserId " +
+            "GROUP BY s.requester.userId")
+    List<AggregateStringingDataByRequesterUserId> getAggregateDataByRequesterUserId(@Param("requesterUserId") UUID requesterUserId);
 }

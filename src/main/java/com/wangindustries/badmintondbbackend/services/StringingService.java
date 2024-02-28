@@ -5,6 +5,7 @@ import com.wangindustries.badmintondbbackend.Mappers.StringingMapper;
 import com.wangindustries.badmintondbbackend.Entities.Racket;
 import com.wangindustries.badmintondbbackend.Entities.Stringing;
 import com.wangindustries.badmintondbbackend.Entities.User;
+import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByRequesterUserId;
 import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByStringerUserId;
 import com.wangindustries.badmintondbbackend.models.CreateStringingRequest;
 import com.wangindustries.badmintondbbackend.models.PatchStringingRequestBody;
@@ -130,5 +131,9 @@ public class StringingService {
 
     public List<AggregateStringingDataByStringerUserId> getAggregateStringingDataByStringerUserId(final UUID stringerUserId) {
         return stringingRepository.getAggregateDataByStringerUserId(stringerUserId);
+    }
+
+    public List<AggregateStringingDataByRequesterUserId> getAggregateStringingDataByRequesterUserId(final UUID requesterUserId) {
+        return stringingRepository.getAggregateDataByRequesterUserId(requesterUserId);
     }
 }

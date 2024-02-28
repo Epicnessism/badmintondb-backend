@@ -2,6 +2,7 @@ package com.wangindustries.badmintondbbackend.controllers;
 
 import com.wangindustries.badmintondbbackend.Converters.StringingResponseConverter;
 import com.wangindustries.badmintondbbackend.Entities.Stringing;
+import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByRequesterUserId;
 import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByStringerUserId;
 import com.wangindustries.badmintondbbackend.models.BaseUserResponse;
 import com.wangindustries.badmintondbbackend.models.ListStringingsResponse;
@@ -92,9 +93,14 @@ public class UsersController {
         return new ResponseEntity<>(new ListStringingsResponse(stringingResponses.size(), stringingResponses), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{userId}/analytical/aggregate")
-    public ResponseEntity<List<AggregateStringingDataByStringerUserId>> getAggregateStringingDataForAnUser(@PathVariable(value = "userId") UUID userId) { //todo implement stringerUser vs requesterUser, etc, etc
+    @GetMapping("/user/{userId}/analytical/aggregate/stringer")
+    public ResponseEntity<List<AggregateStringingDataByStringerUserId>> getAggregateStringingDataForStringerUser(@PathVariable(value = "userId") UUID userId) { //todo implement stringerUser vs requesterUser, etc, etc
         return new ResponseEntity<>(stringingService.getAggregateStringingDataByStringerUserId(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{userId}/analytical/aggregate/requester")
+    public ResponseEntity<List<AggregateStringingDataByRequesterUserId>> getAggregateStringingDataForRequesterUser(@PathVariable(value = "userId") UUID userId) { //todo implement stringerUser vs requesterUser, etc, etc
+        return new ResponseEntity<>(stringingService.getAggregateStringingDataByRequesterUserId(userId), HttpStatus.OK);
     }
 
     @GetMapping("/user/{userId}/racket/all")
