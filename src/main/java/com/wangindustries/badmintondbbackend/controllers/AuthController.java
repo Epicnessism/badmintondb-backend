@@ -40,7 +40,7 @@ public class AuthController {
             throw e;
         }
 
-        UUID testUUID = UUID.randomUUID();
+        UUID testUUID = UUID.randomUUID(); //todo fix this
         return new ResponseEntity<>(new BaseUserResponse("Test Given Name", "Test Family Name 2", testUUID), HttpStatus.CREATED);
     }
 

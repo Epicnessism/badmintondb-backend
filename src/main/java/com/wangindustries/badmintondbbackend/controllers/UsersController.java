@@ -3,9 +3,11 @@ package com.wangindustries.badmintondbbackend.controllers;
 import com.wangindustries.badmintondbbackend.Converters.StringingResponseConverter;
 import com.wangindustries.badmintondbbackend.Entities.Stringing;
 import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByStringerUserId;
+import com.wangindustries.badmintondbbackend.models.BaseUserResponse;
 import com.wangindustries.badmintondbbackend.models.ListStringingsResponse;
 import com.wangindustries.badmintondbbackend.models.RacketDetails;
 import com.wangindustries.badmintondbbackend.models.StringingResponse;
+import com.wangindustries.badmintondbbackend.models.UpdateUserRequestBody;
 import com.wangindustries.badmintondbbackend.models.UserDetails;
 import com.wangindustries.badmintondbbackend.services.RacketService;
 import com.wangindustries.badmintondbbackend.services.StringingService;
@@ -15,8 +17,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,6 +44,17 @@ public class UsersController {
     @GetMapping("/user/stringers")
     public ResponseEntity<List<UserDetails>> getStringers() {
         return new ResponseEntity<>(usersService.getAllStringers(), HttpStatus.OK);
+    }
+
+    @PutMapping("/user/{userId}")
+    public ResponseEntity<BaseUserResponse> updateUserInformation(
+            @PathVariable(value="userId") UUID userId,
+            @RequestBody UpdateUserRequestBody updateRequestBody
+            ) {
+        logger.info(String.valueOf(updateRequestBody)); //log request body
+
+        usersService.updateAllowedUserFields(userId, updateRequestBody);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/user/{userId}/stringings")
