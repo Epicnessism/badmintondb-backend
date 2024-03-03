@@ -1,5 +1,7 @@
 package com.wangindustries.badmintondbbackend.controllers;
 
+import com.wangindustries.badmintondbbackend.Exceptions.CreateUserException;
+import com.wangindustries.badmintondbbackend.Exceptions.SignInCredentialsException;
 import com.wangindustries.badmintondbbackend.models.BaseUserResponse;
 import com.wangindustries.badmintondbbackend.models.CreateUserRequestBody;
 import com.wangindustries.badmintondbbackend.models.SignInBody;
@@ -38,7 +40,7 @@ public class AuthController {
             throw e;
         }
 
-        UUID testUUID = UUID.randomUUID();
+        UUID testUUID = UUID.randomUUID(); //todo fix this
         return new ResponseEntity<>(new BaseUserResponse("Test Given Name", "Test Family Name 2", testUUID), HttpStatus.CREATED);
     }
 

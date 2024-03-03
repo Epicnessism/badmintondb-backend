@@ -36,7 +36,6 @@ public class StringingController {
     public ResponseEntity<StringingResponse> createStringingSession(@RequestBody CreateStringingRequest createStringingRequest) {
         logger.info("Stringing Request: {}", createStringingRequest);
         Stringing insertedStringing = stringingService.createStringingSession(createStringingRequest);
-//        return new ResponseEntity<>(StringingResponse);
         return new ResponseEntity<StringingResponse>(convertToStringingResponse(insertedStringing),HttpStatus.CREATED);
     }
 

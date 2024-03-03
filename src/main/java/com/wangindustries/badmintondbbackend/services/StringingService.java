@@ -1,14 +1,18 @@
 package com.wangindustries.badmintondbbackend.services;
 
+import com.wangindustries.badmintondbbackend.Entities.StringEntity;
 import com.wangindustries.badmintondbbackend.Mappers.StringingMapper;
 import com.wangindustries.badmintondbbackend.Entities.Racket;
 import com.wangindustries.badmintondbbackend.Entities.Stringing;
 import com.wangindustries.badmintondbbackend.Entities.User;
+import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByRequesterUserId;
 import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByStringerUserId;
 import com.wangindustries.badmintondbbackend.models.CreateStringingRequest;
 import com.wangindustries.badmintondbbackend.models.PatchStringingRequestBody;
 import com.wangindustries.badmintondbbackend.models.enums.StringingMethod;
+import com.wangindustries.badmintondbbackend.models.enums.StringingStatus;
 import com.wangindustries.badmintondbbackend.repositories.RacketRepository;
+import com.wangindustries.badmintondbbackend.repositories.StringEntityRepository;
 import com.wangindustries.badmintondbbackend.repositories.StringingRepository;
 import com.wangindustries.badmintondbbackend.repositories.UsersRepository;
 import jakarta.transaction.Transactional;
@@ -34,6 +38,9 @@ public class StringingService {
 
     @Autowired
     RacketRepository racketRepository;
+
+    @Autowired
+    StringEntityRepository stringEntityRepository;
 
     @Autowired
     StringingMapper stringingMapper;
@@ -80,9 +87,12 @@ public class StringingService {
 
     public Stringing createStringingSession(final CreateStringingRequest createStringingRequest) {
         User stringerUser = usersRepository.findByUserId(createStringingRequest.getStringerId());
-        User requesterUser = usersRepository.findByUserId(createStringingRequest.getRacketToString().getOwnerUserId()); //todo implement requesterUserId in create payload later
-
+        User requesterUser = usersRepository.findByUserId(createStringingRequest.getRacketToString().getOwnerDetails().getUserId()); //todo implement requesterUserId in create payload later
         Racket racketToBeStrung; //what to do about this if null?
+        StringEntity stringEntityMains = stringEntityRepository.findById(createStringingRequest.getStringEntityMains()).orElseThrow(); //todo what if desn't exist yet? currently just throw
+        StringEntity stringEntityCrosses = createStringingRequest.getStringEntityMains() == createStringingRequest.getStringEntityCrosses() ? stringEntityMains : stringEntityRepository.findById(createStringingRequest.getStringEntityCrosses()).orElseThrow();
+
+
         if(createStringingRequest.isNewRacket()) {
             //create a new Racket entity
             Racket newRacket = new Racket(UUID.randomUUID(), createStringingRequest.getRacketToString().getMake(), createStringingRequest.getRacketToString().getModel(), requesterUser);
@@ -92,21 +102,24 @@ public class StringingService {
             racketToBeStrung = racketRepository.getByRacketId(createStringingRequest.getRacketToString().getRacketId());
         }
 
+        Timestamp currentTimestamp = Timestamp.from(Instant.now());
 
         Stringing stringingToSave = new Stringing(
                 UUID.randomUUID(),
-                Timestamp.from(Instant.now()),
+                currentTimestamp,
                 null,
-                null,
-                createStringingRequest.getStringName(),
+                currentTimestamp,
                 createStringingRequest.getMains(),
                 createStringingRequest.getMainsInMeters(),
                 createStringingRequest.getCrosses(),
                 createStringingRequest.getCrossesInMeters(),
                 StringingMethod.valueOf(createStringingRequest.getMethod()),
+                StringingStatus.CREATED,
                 false,
                 createStringingRequest.getPrice(),
                 "Notes to be implemented later",
+                stringEntityMains,
+                stringEntityCrosses,
                 racketToBeStrung,
                 stringerUser,
                 requesterUser
@@ -118,5 +131,9 @@ public class StringingService {
 
     public List<AggregateStringingDataByStringerUserId> getAggregateStringingDataByStringerUserId(final UUID stringerUserId) {
         return stringingRepository.getAggregateDataByStringerUserId(stringerUserId);
+    }
+
+    public List<AggregateStringingDataByRequesterUserId> getAggregateStringingDataByRequesterUserId(final UUID requesterUserId) {
+        return stringingRepository.getAggregateDataByRequesterUserId(requesterUserId);
     }
 }

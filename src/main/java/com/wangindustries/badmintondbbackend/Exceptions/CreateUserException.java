@@ -1,4 +1,4 @@
-package com.wangindustries.badmintondbbackend.controllers;
+package com.wangindustries.badmintondbbackend.Exceptions;
 
 import lombok.experimental.StandardException;
 

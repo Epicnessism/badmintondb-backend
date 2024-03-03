@@ -1,4 +1,4 @@
-package com.wangindustries.badmintondbbackend.controllers;
+package com.wangindustries.badmintondbbackend.Exceptions;
 
 
 import org.slf4j.Logger;

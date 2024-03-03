@@ -1,6 +1,7 @@
 package com.wangindustries.badmintondbbackend.Entities;
 
 import com.wangindustries.badmintondbbackend.models.enums.StringingMethod;
+import com.wangindustries.badmintondbbackend.models.enums.StringingStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,9 +30,6 @@ public class Stringing {
   @Column
   private Timestamp lastUpdatedTimestamp;
 
-  @Column
-  private String stringName;
-
   @Column(nullable = false)
   private int mainTension;
 
@@ -50,6 +48,10 @@ public class Stringing {
   //TODO look into converters.........https://www.baeldung.com/jpa-persisting-enums-in-jpa
 
   @Column
+  @Enumerated(value = EnumType.STRING)
+  private StringingStatus status;
+
+  @Column
   private boolean isCompleted;
 
   @Column
@@ -57,6 +59,15 @@ public class Stringing {
 
   @Column
   private String notes;
+
+
+  @ManyToOne
+  @JoinColumn(nullable = false)
+  private StringEntity stringMains;
+
+  @ManyToOne
+  @JoinColumn(nullable = false)
+  private StringEntity stringCrosses;
 
   @ManyToOne
   @JoinColumn(nullable = false)

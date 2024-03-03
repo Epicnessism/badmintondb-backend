@@ -8,5 +8,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class ListStringingsResponse {
+    private final Integer count;
     private final List<StringingResponse> stringingResponseList;
 }

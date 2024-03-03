@@ -1,6 +1,6 @@
 package com.wangindustries.badmintondbbackend.Entities;
 
-import com.wangindustries.badmintondbbackend.models.Gender;
+import com.wangindustries.badmintondbbackend.models.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +34,9 @@ public class User {
 
   @Column
   private String email;
+
+  @Column
+  private boolean isStringer;
 
   @Column(nullable = false, unique = true)
   private String username;

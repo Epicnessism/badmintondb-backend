@@ -1,5 +1,6 @@
 package com.wangindustries.badmintondbbackend.models;
 
+import com.wangindustries.badmintondbbackend.models.enums.Gender;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,4 +14,6 @@ public class CreateUserRequestBody {
     private String givenName;
     private String familyName;
     private Date dateOfBirth;
+    private Gender gender;
+    private Boolean isStringer; //should be optional/default to false?
 }
