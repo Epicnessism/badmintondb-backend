@@ -2,7 +2,7 @@ package com.wangindustries.badmintondbbackend.services;
 
 import com.wangindustries.badmintondbbackend.Exceptions.CreateUserException;
 import com.wangindustries.badmintondbbackend.Entities.User;
-import com.wangindustries.badmintondbbackend.models.CreateUserRequestBody;
+import com.wangindustries.badmintondbbackend.models.requests.CreateUserRequestBody;
 import com.wangindustries.badmintondbbackend.repositories.UsersRepository;
 import com.wangindustries.badmintondbbackend.utils.PasswordEncoder;
 import org.modelmapper.ModelMapper;

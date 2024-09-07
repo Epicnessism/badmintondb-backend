@@ -1,6 +1,6 @@
 package com.wangindustries.badmintondbbackend.services;
 
-import com.wangindustries.badmintondbbackend.Converters.RacketDetailsConverter;
+import com.wangindustries.badmintondbbackend.Converters.RacketConverter;
 import com.wangindustries.badmintondbbackend.models.RacketDetails;
 import com.wangindustries.badmintondbbackend.repositories.RacketRepository;
 import jakarta.transaction.Transactional;
@@ -23,6 +23,6 @@ public class RacketService {
     private static final Logger logger = LoggerFactory.getLogger(RacketService.class);
 
     public List<RacketDetails> getAllRacketsByOwnerId(final UUID ownerUserId) {
-        return racketRepository.getAllRacketsByOwnerUserId(ownerUserId).stream().map(RacketDetailsConverter::convertToRacketDetails).toList();
+        return racketRepository.getAllRacketsByOwnerUserId(ownerUserId).stream().map(RacketConverter::convertToRacketDetails).toList();
     }
 }

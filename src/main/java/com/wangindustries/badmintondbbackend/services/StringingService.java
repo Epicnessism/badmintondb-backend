@@ -1,16 +1,17 @@
 package com.wangindustries.badmintondbbackend.services;
 
-import com.wangindustries.badmintondbbackend.Entities.StringEntity;
-import com.wangindustries.badmintondbbackend.Mappers.StringingMapper;
 import com.wangindustries.badmintondbbackend.Entities.Racket;
+import com.wangindustries.badmintondbbackend.Entities.RacketModel;
 import com.wangindustries.badmintondbbackend.Entities.Stringing;
 import com.wangindustries.badmintondbbackend.Entities.User;
+import com.wangindustries.badmintondbbackend.Mappers.StringingMapper;
 import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByRequesterUserId;
 import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByStringerUserId;
-import com.wangindustries.badmintondbbackend.models.CreateStringingRequest;
-import com.wangindustries.badmintondbbackend.models.PatchStringingRequestBody;
+import com.wangindustries.badmintondbbackend.models.requests.CreateStringingRequest;
+import com.wangindustries.badmintondbbackend.models.requests.PatchStringingRequestBody;
 import com.wangindustries.badmintondbbackend.models.enums.StringingMethod;
 import com.wangindustries.badmintondbbackend.models.enums.StringingStatus;
+import com.wangindustries.badmintondbbackend.repositories.RacketModelRepository;
 import com.wangindustries.badmintondbbackend.repositories.RacketRepository;
 import com.wangindustries.badmintondbbackend.repositories.StringEntityRepository;
 import com.wangindustries.badmintondbbackend.repositories.StringingRepository;
@@ -38,6 +39,9 @@ public class StringingService {
 
     @Autowired
     RacketRepository racketRepository;
+
+    @Autowired
+    RacketModelRepository racketModelRepository;
 
     @Autowired
     StringEntityRepository stringEntityRepository;
@@ -86,20 +90,22 @@ public class StringingService {
 
 
     public Stringing createStringingSession(final CreateStringingRequest createStringingRequest) {
-        User stringerUser = usersRepository.findByUserId(createStringingRequest.getStringerId());
-        User requesterUser = usersRepository.findByUserId(createStringingRequest.getRacketToString().getOwnerDetails().getUserId()); //todo implement requesterUserId in create payload later
+        User stringerUser = usersRepository.findByUserId(createStringingRequest.stringerId());
+        User requesterUser = usersRepository.findByUserId(createStringingRequest.racketToString().getOwnerDetails().getUserId()); //todo implement requesterUserId in create payload later
         Racket racketToBeStrung; //what to do about this if null?
-        StringEntity stringEntityMains = stringEntityRepository.findById(createStringingRequest.getStringEntityMains()).orElseThrow(); //todo what if desn't exist yet? currently just throw
-        StringEntity stringEntityCrosses = createStringingRequest.getStringEntityMains() == createStringingRequest.getStringEntityCrosses() ? stringEntityMains : stringEntityRepository.findById(createStringingRequest.getStringEntityCrosses()).orElseThrow();
+
+        //todo maybe remove this mapping or redesign
+//        StringEntity stringEntityMains = stringEntityRepository.findById(createStringingRequest.stringEntityMains()).orElseThrow(); //todo what if desn't exist yet? currently just throw
+//        StringEntity stringEntityCrosses = createStringingRequest.stringEntityMains() == createStringingRequest.stringEntityCrosses() ? stringEntityMains : stringEntityRepository.findById(createStringingRequest.stringEntityCrosses()).orElseThrow();
 
 
         if(createStringingRequest.isNewRacket()) {
             //create a new Racket entity
-            Racket newRacket = new Racket(UUID.randomUUID(), createStringingRequest.getRacketToString().getMake(), createStringingRequest.getRacketToString().getModel(), requesterUser);
+            Racket newRacket = new Racket(UUID.randomUUID(), createStringingRequest.racketToString().getMake(), createStringingRequest.racketToString().getModel(), requesterUser);
             racketToBeStrung = racketRepository.save(newRacket);
         } else {
             //otherwise attempt to get the existing racket
-            racketToBeStrung = racketRepository.getByRacketId(createStringingRequest.getRacketToString().getRacketId());
+            racketToBeStrung = racketRepository.getByRacketId(createStringingRequest.racketToString().getRacketId());
         }
 
         Timestamp currentTimestamp = Timestamp.from(Instant.now());
@@ -109,17 +115,17 @@ public class StringingService {
                 currentTimestamp,
                 null,
                 currentTimestamp,
-                createStringingRequest.getMains(),
-                createStringingRequest.getMainsInMeters(),
-                createStringingRequest.getCrosses(),
-                createStringingRequest.getCrossesInMeters(),
-                StringingMethod.valueOf(createStringingRequest.getMethod()),
+                createStringingRequest.mains(),
+                createStringingRequest.mainsInMeters(),
+                createStringingRequest.crosses(),
+                createStringingRequest.crossesInMeters(),
+                StringingMethod.valueOf(createStringingRequest.method()),
                 StringingStatus.CREATED,
                 false,
-                createStringingRequest.getPrice(),
+                createStringingRequest.price(),
                 "Notes to be implemented later",
-                stringEntityMains,
-                stringEntityCrosses,
+//                stringEntityMains,
+//                stringEntityCrosses,
                 racketToBeStrung,
                 stringerUser,
                 requesterUser
@@ -135,5 +141,9 @@ public class StringingService {
 
     public List<AggregateStringingDataByRequesterUserId> getAggregateStringingDataByRequesterUserId(final UUID requesterUserId) {
         return stringingRepository.getAggregateDataByRequesterUserId(requesterUserId);
+    }
+
+    public List<RacketModel> getAllRacketModels() {
+        return racketModelRepository.findAll();
     }
 }

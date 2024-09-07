@@ -1,4 +1,4 @@
-package com.wangindustries.badmintondbbackend.models;
+package com.wangindustries.badmintondbbackend.models.requests;
 
 import com.wangindustries.badmintondbbackend.models.enums.StringingStatus;
 import lombok.AllArgsConstructor;

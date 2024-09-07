@@ -18,6 +18,7 @@ public class Racket {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID racketId;
 
+    //todo create a new UUID that maps from OwnedRacket to RacketModel for functional data?
     @Column
     private String make;
 

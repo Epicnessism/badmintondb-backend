@@ -1,4 +1,4 @@
-package com.wangindustries.badmintondbbackend.models;
+package com.wangindustries.badmintondbbackend.models.responses;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;

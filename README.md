@@ -7,4 +7,7 @@ Rebase Badmintondb as a standalone Java Spring Boot webapp, hoping to leverage J
 
 ### Troubleshooting and setup/build issues I ran into
 - Lombok + mapstruct not working nicely with springboot: https://stackoverflow.com/questions/70685602/springboot-lombok-mapstruct-not-working-together
-- 
+
+
+### how to drop local db and migrate from fresh
+- no idea tbd

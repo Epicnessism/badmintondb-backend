@@ -1,9 +1,5 @@
-package com.wangindustries.badmintondbbackend.models;
+package com.wangindustries.badmintondbbackend.models.requests;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.wangindustries.badmintondbbackend.models.enums.Gender;
 import lombok.Data;
 
