@@ -11,3 +11,10 @@ Rebase Badmintondb as a standalone Java Spring Boot webapp, hoping to leverage J
 
 ### how to drop local db and migrate from fresh
 - no idea tbd
+
+
+### Running locally
+- start the local db using docker compose 
+  - ```docker compose -f compose.yaml up```
+- start the application by running the run config in Intellij
+- 
