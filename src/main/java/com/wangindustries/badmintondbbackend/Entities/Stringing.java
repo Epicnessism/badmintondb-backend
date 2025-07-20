@@ -60,6 +60,15 @@ public class Stringing {
   @Column
   private String notes;
 
+
+  @ManyToOne
+  @JoinColumn(nullable = false)
+  private StringEntity stringMains;
+
+  @ManyToOne
+  @JoinColumn(nullable = false)
+  private StringEntity stringCrosses;
+
   @ManyToOne
   @JoinColumn(nullable = false)
   private Racket racket;

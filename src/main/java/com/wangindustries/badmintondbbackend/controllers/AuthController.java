@@ -1,10 +1,12 @@
 package com.wangindustries.badmintondbbackend.controllers;
 
 import com.wangindustries.badmintondbbackend.Exceptions.CreateUserException;
+
 import com.wangindustries.badmintondbbackend.models.requests.CreateUserRequestBody;
 import com.wangindustries.badmintondbbackend.models.requests.SignInBody;
 import com.wangindustries.badmintondbbackend.models.responses.BaseUserResponse;
 import com.wangindustries.badmintondbbackend.models.responses.SignInResponse;
+
 import com.wangindustries.badmintondbbackend.services.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

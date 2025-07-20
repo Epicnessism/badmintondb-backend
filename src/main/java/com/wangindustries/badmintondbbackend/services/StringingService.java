@@ -1,17 +1,18 @@
 package com.wangindustries.badmintondbbackend.services;
 
+
 import com.wangindustries.badmintondbbackend.Entities.Racket;
 import com.wangindustries.badmintondbbackend.Entities.RacketModel;
 import com.wangindustries.badmintondbbackend.Entities.Stringing;
 import com.wangindustries.badmintondbbackend.Entities.User;
-import com.wangindustries.badmintondbbackend.Mappers.StringingMapper;
+
 import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByRequesterUserId;
 import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByStringerUserId;
 import com.wangindustries.badmintondbbackend.models.requests.CreateStringingRequest;
 import com.wangindustries.badmintondbbackend.models.requests.PatchStringingRequestBody;
 import com.wangindustries.badmintondbbackend.models.enums.StringingMethod;
 import com.wangindustries.badmintondbbackend.models.enums.StringingStatus;
-import com.wangindustries.badmintondbbackend.repositories.RacketModelRepository;
+
 import com.wangindustries.badmintondbbackend.repositories.RacketRepository;
 import com.wangindustries.badmintondbbackend.repositories.StringEntityRepository;
 import com.wangindustries.badmintondbbackend.repositories.StringingRepository;
@@ -42,9 +43,6 @@ public class StringingService {
 
     @Autowired
     RacketModelRepository racketModelRepository;
-
-    @Autowired
-    StringEntityRepository stringEntityRepository;
 
     @Autowired
     StringingMapper stringingMapper;
@@ -93,11 +91,9 @@ public class StringingService {
         User stringerUser = usersRepository.findByUserId(createStringingRequest.stringerId());
         User requesterUser = usersRepository.findByUserId(createStringingRequest.racketToString().getOwnerDetails().getUserId()); //todo implement requesterUserId in create payload later
         Racket racketToBeStrung; //what to do about this if null?
-
         //todo maybe remove this mapping or redesign
 //        StringEntity stringEntityMains = stringEntityRepository.findById(createStringingRequest.stringEntityMains()).orElseThrow(); //todo what if desn't exist yet? currently just throw
 //        StringEntity stringEntityCrosses = createStringingRequest.stringEntityMains() == createStringingRequest.stringEntityCrosses() ? stringEntityMains : stringEntityRepository.findById(createStringingRequest.stringEntityCrosses()).orElseThrow();
-
 
         if(createStringingRequest.isNewRacket()) {
             //create a new Racket entity

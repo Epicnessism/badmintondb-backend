@@ -57,7 +57,6 @@ values
 -- ('4d15850b-a329-42cc-bab4-681d294ce35a', '92cba104-c922-4852-a683-b32ffd21b109', '92cba104-c922-4852-a683-b32ffd21b109', '2783e281-873a-4e72-8973-fe60663a822e', 0, '0c7c7698-5746-4ce5-8bff-46fb662c01ce', '0c7c7698-5746-4ce5-8bff-46fb662c01ce', 3.4, 3.1, 25, 27, 'COMPLETED', true, '8/19/2023 00:00:00', '8/19/2023 00:00:00', '8/19/2023 00:00:00', 'FOURKNOT', 'Fucked up the last tie off knot at the end a little bit. Still success. Added the extra pull strings to the bottom cover holes. somewhat useful.'), --tony 100zz
 -- ('87565199-13b1-4923-9cd8-76f3a0d9c8a5', 'ba9ed17a-b785-4d67-ba2a-e71051dbab3f', '92cba104-c922-4852-a683-b32ffd21b109', 'ac2fe681-ada2-4f24-ad75-b54aa23d1ec3', 15.00, '0c7c7698-5746-4ce5-8bff-46fb662c01ce', '0c7c7698-5746-4ce5-8bff-46fb662c01ce', 3.5, 3.25, 24, 26, 'COMPLETED', true, '9/15/2023 00:00:00', '9/15/2023 00:00:00', '9/15/2023 00:00:00', 'FOURKNOT', 'Should continue using 3.25 and leave enough space at the end of cross starting to pull it one last time'), --krystal NF700
 -- ('0a376308-eed6-410a-8a32-96fa37fcd903', '92cba104-c922-4852-a683-b32ffd21b109', '92cba104-c922-4852-a683-b32ffd21b109', '93f68eff-8615-4f57-93b0-36957698d856', 0, '4bcbb372-784c-4154-904a-0ce5b17687fa', '4bcbb372-784c-4154-904a-0ce5b17687fa', 3.4, 3.1, 26, 28, 'COMPLETED', true, '11/19/2023 00:00:00', '11/19/2023 00:00:00', '11/19/2023 00:00:00', 'FOURKNOT', 'Fucked up top knot, fucked up side supports') --tony 100zz
-
 ;
 
 

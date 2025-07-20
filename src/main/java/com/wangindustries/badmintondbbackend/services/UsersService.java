@@ -2,7 +2,7 @@ package com.wangindustries.badmintondbbackend.services;
 
 import com.wangindustries.badmintondbbackend.Converters.UserDetailsConverter;
 import com.wangindustries.badmintondbbackend.Entities.User;
-import com.wangindustries.badmintondbbackend.models.requests.UpdateUserRequestBody;
+
 import com.wangindustries.badmintondbbackend.models.UserDetails;
 import com.wangindustries.badmintondbbackend.repositories.UsersRepository;
 import org.slf4j.Logger;

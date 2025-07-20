@@ -4,11 +4,13 @@ import com.wangindustries.badmintondbbackend.Converters.StringingResponseConvert
 import com.wangindustries.badmintondbbackend.Entities.Stringing;
 import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByRequesterUserId;
 import com.wangindustries.badmintondbbackend.models.AggregateStringingDataByStringerUserId;
+
 import com.wangindustries.badmintondbbackend.models.responses.BaseUserResponse;
 import com.wangindustries.badmintondbbackend.models.responses.ListStringingsResponse;
 import com.wangindustries.badmintondbbackend.models.RacketDetails;
 import com.wangindustries.badmintondbbackend.models.responses.StringingResponse;
 import com.wangindustries.badmintondbbackend.models.requests.UpdateUserRequestBody;
+
 import com.wangindustries.badmintondbbackend.models.UserDetails;
 import com.wangindustries.badmintondbbackend.services.RacketService;
 import com.wangindustries.badmintondbbackend.services.StringingService;
@@ -18,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
