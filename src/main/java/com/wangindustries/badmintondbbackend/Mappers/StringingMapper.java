@@ -1,7 +1,7 @@
 package com.wangindustries.badmintondbbackend.Mappers;
 
 import com.wangindustries.badmintondbbackend.Entities.Stringing;
-import com.wangindustries.badmintondbbackend.models.PatchStringingRequestBody;
+import com.wangindustries.badmintondbbackend.models.requests.PatchStringingRequestBody;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

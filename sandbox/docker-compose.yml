@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  localstack:
+    container_name: LocalStack_DynamoDB
+    image: localstack/localstack
+    ports:
+      - "4566:4566"            # LocalStack Gateway
+#      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+    environment:
+      # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
+#      - DEBUG=${DEBUG:-0}
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_ACCESS_KEY_ID: testUser
+      AWS_SECRET_ACCESS_KEY: testAccessKey
+      DOCKER_HOST: unix:///var/run/docker.sock
+      DATA_DIR: /tmp/localstack/data
+      LS_LOG: debug
+      DYNAMO_SHARE_DB: 1
+      ALLOW_NONSTANDARD_REGIONS: 1
+      REQUESTS_CA_BUNDLE:
+      CURL_CA_BUNDLE:
+    volumes:
+      - "./localstack.sh:/etc/localstack/init/ready.d/localstack.sh"
+      - "/var/run/docker.sock:/var/run/docker.sock"

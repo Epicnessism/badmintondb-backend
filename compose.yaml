@@ -6,4 +6,12 @@ services:
       - 'POSTGRES_PASSWORD=test1234'
       - 'POSTGRES_USER=testUser'
     ports:
-      - '5432'
+      - "5432:5432"
+
+  flyway:
+    image: flyway/flyway:latest
+    command: -url=jdbc:postgresql://postgres:5432/bst_db -user=testUser -password=test1234 migrate
+    volumes:
+      - ./src/main/resources/db/migration:/flyway/sql
+    depends_on:
+      - postgres

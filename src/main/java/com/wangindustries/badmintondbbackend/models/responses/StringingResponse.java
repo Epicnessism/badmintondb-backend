@@ -1,5 +1,7 @@
-package com.wangindustries.badmintondbbackend.models;
+package com.wangindustries.badmintondbbackend.models.responses;
 
+import com.wangindustries.badmintondbbackend.models.RacketDetails;
+import com.wangindustries.badmintondbbackend.models.StringerUser;
 import com.wangindustries.badmintondbbackend.models.enums.StringingStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +22,6 @@ public class StringingResponse {
     private final StringingStatus status;
     private final String notes;
     private final double price;
-    private final StringDetails stringMains;
-    private final StringDetails stringCrosses;
+//    private final StringDetails stringMains;
+//    private final StringDetails stringCrosses;
 }

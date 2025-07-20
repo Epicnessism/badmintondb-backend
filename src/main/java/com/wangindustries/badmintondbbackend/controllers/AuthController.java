@@ -1,11 +1,12 @@
 package com.wangindustries.badmintondbbackend.controllers;
 
 import com.wangindustries.badmintondbbackend.Exceptions.CreateUserException;
-import com.wangindustries.badmintondbbackend.Exceptions.SignInCredentialsException;
-import com.wangindustries.badmintondbbackend.models.BaseUserResponse;
-import com.wangindustries.badmintondbbackend.models.CreateUserRequestBody;
-import com.wangindustries.badmintondbbackend.models.SignInBody;
-import com.wangindustries.badmintondbbackend.models.SignInResponse;
+
+import com.wangindustries.badmintondbbackend.models.requests.CreateUserRequestBody;
+import com.wangindustries.badmintondbbackend.models.requests.SignInBody;
+import com.wangindustries.badmintondbbackend.models.responses.BaseUserResponse;
+import com.wangindustries.badmintondbbackend.models.responses.SignInResponse;
+
 import com.wangindustries.badmintondbbackend.services.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,16 +46,16 @@ public class AuthController {
         return new ResponseEntity<>(new BaseUserResponse("Test Given Name", "Test Family Name 2", testUUID), HttpStatus.CREATED);
     }
 
-
-    @PostMapping("auth/signin")
+    @CrossOrigin
+    @PostMapping(value = "auth/signin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SignInResponse> signInUser(@RequestBody SignInBody signInBody) {
         logger.info("Testing logging of signInUser endpoint: {}", signInBody );
-        if (!authService.validateLogin(signInBody.getUsername(), signInBody.getPassword())) {
-            throw new SignInCredentialsException("Invalid Credentials");
-        }
+//        if (!authService.validateLogin(signInBody.getUsername(), signInBody.getPassword())) {
+//            throw new SignInCredentialsException("Invalid Credentials");
+//        }
 
         //todo should probably return a jwt token or something here to store for future accesses?
         //todo may need to read up on best practices to implement this
-        return new ResponseEntity<SignInResponse>(new SignInResponse("Tony Wang Test1"), HttpStatus.ACCEPTED);
+        return new ResponseEntity<SignInResponse>(new SignInResponse(authService.validateAndGetUserId(signInBody.getUsername(), signInBody.getPassword())), HttpStatus.ACCEPTED);
     }
 }

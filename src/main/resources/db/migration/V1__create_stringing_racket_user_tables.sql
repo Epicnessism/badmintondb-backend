@@ -36,28 +36,40 @@ CREATE TABLE public.racket (
 CREATE TABLE public.stringing (
 	cross_length int4 NULL,
 	cross_tension int4 NOT NULL,
+
 	is_completed bool NULL,
+
 	main_length int4 NULL,
 	main_tension int4 NOT NULL,
+
 	price float8 NULL,
-	completed_timestamp timestamp(6) NULL,
+
+    completed_timestamp timestamp(6) NULL,
 	last_updated_timestamp timestamp(6) NULL,
 	requested_timestamp timestamp(6) NOT NULL,
-	racket_racket_id uuid NOT NULL,
+
+    racket_racket_id uuid NOT NULL,
 	requester_user_id uuid NULL,
-	string_mains_id uuid NOT NULL,
-	string_crosses_id uuid NOT NULL,
+
+-- 	string_mains_id uuid NOT NULL,
+-- 	string_crosses_id uuid NOT NULL,
+
 	stringer_user_id uuid NOT NULL,
 	stringing_id uuid NOT NULL,
-	"method" varchar(255) NULL,
+
+    "method" varchar(255) NULL,
 	notes varchar(255) NULL,
 	status varchar(255) NULL,
+
+    cross_color varchar(255) NULL,
+    main_color varchar(255) NULL
+
 	CONSTRAINT stringing_method_check CHECK (((method)::text = ANY ((ARRAY['TWOKNOT'::character varying, 'FOURKNOT'::character varying, 'OTHER'::character varying])::text[]))),
 	CONSTRAINT stringing_pkey PRIMARY KEY (stringing_id),
 	CONSTRAINT stringing_status_check CHECK (((status)::text = ANY ((ARRAY['CREATED'::character varying, 'PENDING'::character varying, 'REJECTED'::character varying, 'DELIVERED'::character varying, 'IN_PROGRESS'::character varying, 'CANCELED'::character varying, 'FAILED'::character varying, 'COMPLETED'::character varying])::text[]))),
 	CONSTRAINT fk2vfsimuargu0kpg6an1eh9ilg FOREIGN KEY (stringer_user_id) REFERENCES public.users(user_id),
 	CONSTRAINT fk535qodmlu1ghkvftq3d22x64v FOREIGN KEY (requester_user_id) REFERENCES public.users(user_id),
-	CONSTRAINT fk6lyb4f9k0it6figmdrgm8mwta FOREIGN KEY (string_mains_id) REFERENCES public.string_entity(id),
-	CONSTRAINT fkcskf3biqubs93o41yj2tjrt90 FOREIGN KEY (string_crosses_id) REFERENCES public.string_entity(id),
+-- 	CONSTRAINT fk6lyb4f9k0it6figmdrgm8mwta FOREIGN KEY (string_mains_id) REFERENCES public.string_entity(id),
+-- 	CONSTRAINT fkcskf3biqubs93o41yj2tjrt90 FOREIGN KEY (string_crosses_id) REFERENCES public.string_entity(id),
 	CONSTRAINT fkrf3b5hcpp6f1uft87bjj05ju5 FOREIGN KEY (racket_racket_id) REFERENCES public.racket(racket_id)
 );
